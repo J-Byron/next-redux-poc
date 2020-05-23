@@ -12,22 +12,12 @@ class TodoPanel extends Component {
     if (req) {
       // All async actions must be await'ed
       await store.dispatch({ type: 'GET_TODOS' })
-      await store.dispatch({ type: 'SET_TODOS', payload: [{ name: 'hello' }] })
-
-      return { pageProp: 'server' }
     }
-
-    // await is not needed if action is synchronous
-    // store.dispatch({ type: 'GET_TODOS' })
-    // await store.dispatch({ type: 'SET_TODOS', payload: [{ name: 'hello' }] })
-
-    // Some custom thing for this particular page
-    return { pageProp: 'client' }
   }
 
   render() {
     console.log(this.props)
-    return <div>Welcome to Next.js!</div>
+    return <div>Panel!</div>
   }
 }
 

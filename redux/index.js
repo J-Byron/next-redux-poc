@@ -8,7 +8,6 @@ export const makeStore = context => {
   const saga = createSagaMiddleware()
   const store = createStore(rootReducer, applyMiddleware(saga))
   store.sagaTask = saga.run(rootSaga)
-  console.log('store ->', store)
   return store
 }
 

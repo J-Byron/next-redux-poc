@@ -1,10 +1,17 @@
 const router = require('express').Router()
 const Todo = require('../models/Todo')
 
+const stubTodos = [
+  { _id: 0, description: 'This is stub data 1' },
+  { _id: 1, description: 'This is stub data 2' },
+  { _id: 2, description: 'This is stub data 3' }
+]
+
 // Get all todos
 router.get('/todos', async (req, res) => {
-  const todos = await Todo.find({}).catch(e => console.log(e))
-  res.status(200).json(todos)
+  // const todos = await Todo.find({}).catch(e => console.log(e))
+  // res.status(200).json(todos)
+  res.status(200).json(stubTodos)
 })
 
 // Get todo by id

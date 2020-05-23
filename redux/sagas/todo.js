@@ -1,18 +1,16 @@
 import axios from 'axios'
 import { put as dispatch, takeLatest } from 'redux-saga/effects'
 
-const stubTodos = [
-  { _id: 0, desciption: 'This is stub data 1' },
-  { _id: 1, desciption: 'This is stub data 2' },
-  { _id: 2, desciption: 'This is stub data 3' }
-]
+// TODO should be moved into an http-proxy-config for axios ...
+const PROXY = 'http://localhost:6000'
 
 function* getTodos() {
   try {
     yield dispatch({ type: 'RESET_TODOS' })
-    // const data = yield axios.get('/api/todos')
-    const data = stubTodos
-    yield dispatch({ type: 'SET_TODOS', payload: data })
+    const { data: responseData } = yield axios.get(`${PROXY}/api/todos`)
+    console.log(responseData)
+
+    yield dispatch({ type: 'SET_TODOS', payload: responseData })
   } catch (e) {
     console.log('Error while fetching todos...', e)
   }
