@@ -1,5 +1,4 @@
 import { HYDRATE } from 'next-redux-wrapper'
-import { createStore } from 'redux'
 
 const todoReducer = (state = [], action) => {
   switch (action.type) {

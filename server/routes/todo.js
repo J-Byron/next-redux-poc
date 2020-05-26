@@ -1,11 +1,6 @@
 const router = require('express').Router()
 const Todo = require('../models/Todo')
 
-const stubTodos = [
-  { _id: 0, description: 'This is stub data 1' },
-  { _id: 1, description: 'This is stub data 2' },
-  { _id: 2, description: 'This is stub data 3' }
-]
 
 // Get all todos
 router.get('/todos', async (req, res) => {
@@ -37,7 +32,7 @@ router.post('/todo', async (req, res) => {
     })
 
     await todo.save()
-    res.status(200).json()
+    res.status(200).send()
   } catch (error) {
     res.status(400)
   }
@@ -47,7 +42,7 @@ router.post('/todo', async (req, res) => {
 router.delete('/todo/:id', async (req, res) => {
   try {
     await Todo.deleteOne({ _id: req.params.id })
-    res.status(200)
+    res.status(200).send()
   } catch (e) {
     res.status(400)
   }

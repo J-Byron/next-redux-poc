@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({
 
 const TodoPanel = props => {
   const { list, dispatch } = props
-  console.log(props)
 
   const classes = useStyles()
   const [description, setDescription] = useState('')
@@ -62,6 +61,7 @@ const TodoPanel = props => {
   const [editItemDescription, setEditItemDescription] = useState('')
 
   const handleAddClick = () => {
+    setDescription('')
     dispatch({ type: 'POST_TODO', payload: { description } })
   }
 
@@ -151,6 +151,7 @@ const TodoPanel = props => {
         <InputBase
           className={classes.input}
           placeholder='add item'
+          value={description}
           onChange={({ target }) => setDescription(target.value)}
         />
         <IconButton

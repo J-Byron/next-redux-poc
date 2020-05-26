@@ -23,10 +23,12 @@ function* postTodo(action) {
     console.log('Error while posting todo...', e)
   }
 }
+
 function* deleteTodo(action) {
   try {
     const { id } = action.payload
     yield axios.delete(`${PROXY}/api/todo/${id}`)
+    
     yield dispatch({ type: 'GET_TODOS' })
   } catch (error) {
     console.log('Error while deleting todo...', e)
