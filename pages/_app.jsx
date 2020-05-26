@@ -1,7 +1,6 @@
 import App from 'next/app'
 // import withRedux from 'next-redux-wrapper'
 import { wrapper } from '../redux/index'
-import { END } from 'redux-saga'
 
 class MyApp extends App {
   /**
@@ -12,25 +11,6 @@ class MyApp extends App {
    *  * content. For dynamic content this is fine, but for static sites pulling static content through a
    *  * headless CMS API, this can be a bit wasteful on resources.
    */
-
-  // static getInitialProps = async ({ Component, ctx }) => {
-  //   // 1. Wait for all page actions to dispatch
-  //   const pageProps = {
-  //     ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
-  //   }
-
-  //   // 2. Stop the saga if on server
-  //   if (ctx.req) {
-  //     console.log('Saga is executing on server, we will wait')
-  //     ctx.store.dispatch(END)
-  //     await ctx.store.sagaTask.toPromise()
-  //   }
-
-  //   // 3. Return props
-  //   return {
-  //     pageProps
-  //   }
-  // }
 
   render() {
     const { Component, pageProps } = this.props

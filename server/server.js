@@ -2,6 +2,7 @@ const express = require('express') // Node web server framework
 const mongoose = require('mongoose') // Object data modeling for mongoDB
 const cors = require('cors') // Allow endpoint to accept requests
 const todoRouter = require('./routes/todo')
+const bodyParser = require('body-parser')
 require('dotenv').config() // Allow env
 
 const {
@@ -11,6 +12,10 @@ const {
   PORT
 } = process.env
 const app = express()
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(cors())
 
 // *---------* Endpoints *---------*

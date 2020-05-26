@@ -1,6 +1,6 @@
 import TodoPanel from '../components/TodoPanel'
 import { wrapper } from '../redux/index'
-import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { END } from 'redux-saga'
 
 /*
@@ -10,27 +10,22 @@ import { END } from 'redux-saga'
   3. client side generation (look into SWR)
 */
 
+// Runs at build time
 export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-  console.log('Fetching static props...')
   await store.dispatch({ type: 'GET_TODOS' })
   store.dispatch(END)
   await store.sagaTask.toPromise()
 })
 
-const Index = () => {
-  const selector = useSelector(state => state)
-  console.log(selector)
+const Index = props => {
+  const { todo: todos = [] } = props
   return (
     <div>
-      {/* <ul>
-        {todo.map((el, index) => (
-          <li key={index}>{el.description}</li>
-        ))}
-      </ul> */}
-      {/* {todo.length >= 1 && todo[0].description} */}
-      Heya
+      <div>
+        <TodoPanel list={todos} />
+      </div>
     </div>
   )
 }
 
-export default Index
+export default connect(state => state)(Index)

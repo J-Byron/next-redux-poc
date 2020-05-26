@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
     "build": "next build",
     "start": "next build && next start",
-    "server": "node ./server/server.js"
+    "watch:dev": "nodemon --watch *.jsx -x 'npm run dev'",
+    "server": "node ./server/server.js",
+    "watch:server": "nodemon --watch ./server -x 'npm run server'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.9.14",
+    "@material-ui/core": "^4.10.0",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -22,6 +25,7 @@
     "next": "^9.4.0",
     "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^6.0.0",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
