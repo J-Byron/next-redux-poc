@@ -44,13 +44,6 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-/*
-  Next JS supports 3 types of pages
-  1. Static generation (think pages that can be loaded before a user's request, like a blog post )
-  2. SSR that fetches data once at request time. 
-  3. client side generation (look into SWR)
-*/
-
 const TodoPanel = props => {
   const { list, dispatch } = props
 
