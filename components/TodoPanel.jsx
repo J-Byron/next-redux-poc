@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useSelector, connect } from 'react-redux'
+import { connect } from 'react-redux'
+import Link from 'next/link'
 
 // *---------* Material UI *---------*
 import { makeStyles } from '@material-ui/core/styles'
@@ -102,7 +103,11 @@ const TodoPanel = props => {
                       }}
                     />
                   ) : (
-                    item.description
+                    <Link href={`/todo/[id]`} as={`/todo/${item._id}`}>
+                      <a style={{ textDecoration: 'none', color: 'black' }}>
+                        {item.description}
+                      </a>
+                    </Link>
                   )}
                 </TableCell>
                 <TableCell component='th' scope='row' align='center'>

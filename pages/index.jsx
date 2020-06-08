@@ -3,22 +3,26 @@ import { wrapper } from '../redux/index'
 import { connect } from 'react-redux'
 import { END } from 'redux-saga'
 
-/*
-  Next JS supports 3 types of pages
-  1. Static generation (think pages that can be loaded before a user's request, like a blog post )
-  2. SSR that fetches data once at request time. 
-  3. client side generation (look into SWR)
-*/
-
 // Runs at build time
-export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-  await store.dispatch({ type: 'GET_TODOS' })
-  store.dispatch(END)
-  await store.sagaTask.toPromise()
+export const getStaticProps = wrapper.getStaticProps(async context => {
+  // Conditionally generate static/dynamic props based on preview cookie
+  if (context.preview) {
+    await context.store.dispatch({ type: 'GET_TODOS', payload: 'server' })
+  } else {
+    await context.store.dispatch({ type: 'GET_TODOS', payload: 'static' })
+  }
+
+  context.store.dispatch(END)
+  await context.store.sagaTask.toPromise()
 })
 
 const Index = props => {
-  const { todo: todos = [] } = props
+  console.log(props)
+  const todos =
+    props.todoReducer.server != 'init'
+      ? props.todoReducer.server
+      : props.todoReducer.static
+
   return (
     <div>
       <div>

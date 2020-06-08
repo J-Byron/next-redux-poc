@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const Todo = require('../models/Todo')
 
-
 // Get all todos
 router.get('/todos', async (req, res) => {
   try {
@@ -13,7 +12,7 @@ router.get('/todos', async (req, res) => {
 })
 
 // Get todo by id
-router.get('/todos:id', async ({ params: { id } }, res) => {
+router.get('/todo/:id', async ({ params: { id } }, res) => {
   try {
     const todoItem = await Todo.findById(id).catch(e => console.log(e))
     res.status(200).json(todoItem)

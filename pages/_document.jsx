@@ -18,7 +18,9 @@ export default class MyDocument extends Document {
             height: '100vh',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#356afd'
+            backgroundColor: '#e6e6e6',
+            padding: '0% 25% 0% 25%',
+            fontFamily: 'roboto'
           }}
         >
           <Main />

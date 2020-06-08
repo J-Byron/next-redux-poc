@@ -4,10 +4,15 @@ import { put as dispatch, takeLatest } from 'redux-saga/effects'
 // TODO should be moved into an http-proxy-config for axios ...
 const PROXY = `http://localhost:8000`
 
-function* getTodos() {
+function* getTodos(action) {
   try {
     const { data: responseData } = yield axios.get(`${PROXY}/api/todos`)
-    yield dispatch({ type: 'SET_TODOS', payload: responseData })
+
+    if (action.payload == 'static') {
+      yield dispatch({ type: 'SET_STATIC_TODOS', payload: responseData })
+    } else {
+      yield dispatch({ type: 'SET_SERVER_TODOS', payload: responseData })
+    }
   } catch (e) {
     console.log('Error while fetching todos...', e)
   }
@@ -18,7 +23,7 @@ function* postTodo(action) {
     const { description } = action.payload
 
     yield axios.post(`${PROXY}/api/todo`, { description })
-    yield dispatch({ type: 'GET_TODOS' })
+    yield dispatch({ type: 'GET_TODOS', payload: 'server' })
   } catch (error) {
     console.log('Error while posting todo...', e)
   }
@@ -28,8 +33,8 @@ function* deleteTodo(action) {
   try {
     const { id } = action.payload
     yield axios.delete(`${PROXY}/api/todo/${id}`)
-    
-    yield dispatch({ type: 'GET_TODOS' })
+
+    yield dispatch({ type: 'GET_TODOS', payload: 'server' })
   } catch (error) {
     console.log('Error while deleting todo...', e)
   }
@@ -37,15 +42,12 @@ function* deleteTodo(action) {
 
 function* updateTodo(action) {
   try {
-    console.log('HIT UPDATE TODO SAGA')
-
     const { id, updatedDescription } = action.payload
     const item = yield axios.put(`${PROXY}/api/todo/${id}`, {
       updatedDescription
     })
-    console.log('UpdatedItem -->', item)
 
-    yield dispatch({ type: 'GET_TODOS' })
+    yield dispatch({ type: 'GET_TODOS', payload: 'server' })
   } catch (error) {
     console.log('Error while updating todo...', e)
   }
